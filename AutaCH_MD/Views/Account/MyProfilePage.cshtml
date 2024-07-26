@@ -1,0 +1,55 @@
+﻿@model AutaCH_MD.Models.User;
+
+
+<div class="profilePage-form d-flex flex-column align-items-center">
+    <h1 class="mt-5">Personal Information</h1>
+
+    <form asp-controller="Account" asp-action="MyProfilePage" class="form-bg form-control mt-5 mb-5 p-5 d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+        <div>
+            <div class="edit-fill form-group">
+                <label asp-for="FirstName" class="form-label text-light">First Name</label>
+                <input asp-for="FirstName" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="LastName" class="form-label text-light">Last Name</label>
+                <input asp-for="LastName" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Country" class="form-label text-light">Country</label>
+                <input asp-for="Country" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="City" class="form-label text-light">City</label>
+                <input asp-for="City" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="PostalCode" class="form-label text-light">Postal Code</label>
+                <input asp-for="PostalCode" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Street" class="form-label text-light">Street</label>
+                <input asp-for="Street" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="HouseNumber" class="form-label text-light">House Number</label>
+                <input asp-for="HouseNumber" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="ApartmentNumber" class="form-label text-light">Ap. Number</label>
+                <input asp-for="ApartmentNumber" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="PhoneNumber" class="form-label text-light">Phone Number</label>
+                <input asp-for="PhoneNumber" readonly class="form-control form-input" />
+            </div>
+        </div>
+
+        <div class="profilePage-btn d-flex flex-column align-items-center">
+            <a asp-controller="Account" asp-action="EditProfile" class="btn btn-light">Edit Profile</a>
+            <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-light mt-3">Change Password</a>
+            <a asp-controller="Account" asp-action="AccountPage" class="btn btn-light mt-3">Back</a>
+        </div>
+    </form>
+
+</div>

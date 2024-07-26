@@ -1,0 +1,19 @@
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Fișiere generate de compilare
+bin/
+obj/
+
+# Fișiere de log și alte fișiere temporare
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Fișiere generate de sistemul de operare
+.DS_Store
+Thumbs.db

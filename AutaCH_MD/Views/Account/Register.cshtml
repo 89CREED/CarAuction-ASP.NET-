@@ -1,0 +1,100 @@
+﻿@model AutaCH_MD.DTOs.UserDTO
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-container d-flex flex-column align-items-center">
+    <h1 class="text-center mt-5">New User Registration</h1>
+    <p class="text-center">To get full acces to the resources of "Bid&bull;4&bull;Wheel" and take advantage of offers at auctions, complete the required data and accept the form.</p>
+    <form asp-action="Register" method="post" class="form-bg form-control mt-5 p-5 bg-black d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+        <div class="d-flex gap-5">
+            <div class="first-col">
+                <div class="reg-fill form-group">
+                    <label asp-for="FirstName" class="form-label text-light">First Name</label>
+                    <input asp-for="FirstName" placeholder="First Name" class="form-control form-input" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="LastName" class="form-label text-light">Last Name</label>
+                    <input asp-for="LastName" placeholder="Last Name" class="form-control form-input" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Country" class="form-label text-light">Country</label>
+                    <input asp-for="Country" placeholder="Country" class="form-control form-input" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="City" class="form-label text-light">City</label>
+                    <input asp-for="City" placeholder="City" class="form-control form-input" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="PostalCode" class="form-label text-light">Postal Code</label>
+                    <input asp-for="PostalCode" placeholder="Postal Code" class="form-control form-input" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Street" class="form-label text-light">Street</label>
+                    <input asp-for="Street" placeholder="Street" class="form-control form-input" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="HouseNumber" class="form-label text-light">House Number</label>
+                    <input asp-for="HouseNumber" placeholder="House Number" class="form-control form-input" />
+                    <span asp-validation-for="HouseNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="second-col">
+                <div class="reg-fill form-group">
+                    <label asp-for="ApartmentNumber" class="form-label text-light">Ap. Number</label>
+                    <input asp-for="ApartmentNumber" placeholder="Ap. Number" class="form-control form-input" />
+                    <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="PhoneNumber" class="form-label text-light">Phone Number</label>
+                    <input asp-for="PhoneNumber" placeholder="Phone Number" class="form-control form-input" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Login" class="form-label text-light">Login</label>
+                    <input asp-for="Login" placeholder="Login" class="form-control form-input" />
+                    <span asp-validation-for="Login" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Password" class="form-label text-light">Password</label>
+                    <input asp-for="Password" type="password" placeholder="Password" class="form-control form-input" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Password" class="form-label text-light">Repeat Password</label>
+                    <input asp-for="Password" type="password" placeholder="Repeat Password" class="form-control form-input" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="reg-fill form-group">
+                    <label asp-for="Email" class="form-label text-light">Email</label>
+                    <input asp-for="Email" placeholder="Email" class="form-control form-input" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="check-box form-group form-check text-light ">
+                    <input asp-for="TermsAccepted" type="checkbox" class="form-check-input" id="termsCheck" />
+                    <label asp-for="TermsAccepted" class="form-check-label">I agree to the <a href="#">terms of use</a> and <a href="#">data policy</a></label>
+                    <span asp-validation-for="TermsAccepted" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check text-light">
+                    <input asp-for="AknowledgeAccepted" type="checkbox" class="form-check-input" id="termsCheck" />
+                    <label asp-for="AknowledgeAccepted" class="form-check-label">I understand that all offers are binding, cannot be withdrawn and payment is required if the vehicle is awarded.</label>
+                    <span asp-validation-for="AknowledgeAccepted" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reg-btn d-flex flex-column align-items-center mt-5">
+            <button type="submit" class="btn btn-light">Register</button>
+            <label class="form-label text-light mt-3">Already have an Account? <a href="Login">LogIn!</a></label>
+        </div>
+        
+        
+    </form>
+</div>

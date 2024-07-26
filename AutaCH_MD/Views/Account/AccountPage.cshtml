@@ -1,0 +1,12 @@
+﻿@model AutaCH_MD.Models.User;
+
+<div>
+    <h1>Hi, @Model.FirstName</h1>
+    <div>
+        <a class="btn btn-dark">My Cars</a>
+        <a class="btn btn-dark">Won Auctions</a>
+        <a class="btn btn-dark">Watchlist</a>
+        <a class="btn btn-dark">Proteges</a>
+        <a asp-controller="Account" asp-action="MyProfilePage" class="btn btn-dark">My Profile</a>
+    </div>
+</div>

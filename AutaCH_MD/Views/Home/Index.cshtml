@@ -1,0 +1,40 @@
+﻿@model AutaCH_MD.Models.Car
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="form-container form-control p-5 mt-5">
+        <form asp-action="Search" method="GET">
+            <div class="form-fill">
+                <label asp-for="Make" class="form-label text-light"></label>
+                <input asp-for="Make" class="form-control" placeholder="Make" />
+            </div>
+            <div class="form-fill">
+                <label asp-for="Model" class="form-label text-light"></label>
+                <input asp-for="Model" class="form-control" placeholder="Model" />
+            </div>
+            <div class="form-fill">
+                <label asp-for="Year" class="form-label text-light"></label>
+                <div class=" d-flex gap-5">
+                    <input asp-for="Year" class="form-control form-input" placeholder="From" />
+                    <input asp-for="Year" class="form-control form-input" placeholder="To" />
+                </div>
+            </div>
+            <div class="form-fill">
+                <label asp-for="Mileage" class="form-label text-light"></label>
+                <div class="d-flex gap-5">
+                    <input asp-for="Mileage" class="form-control form-input" placeholder="From" />
+                    <input asp-for="Mileage" class="form-control form-input" placeholder="To" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light mt-3">Search</button>
+        </form>
+    </div>
+
+    <div class="car-section">
+
+    </div>
+</div>
+

@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccesor;
+@{
+    string userLogin = HttpContextAccesor.HttpContext.Session.GetString("Login");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AutaCH_MD</title>
+    <link rel="icon" type="image/x-icon" href="~/icons/4wheel.png" asp-append-version=" true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AutaCH_MD.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-black border-bottom-5 border-red box-shadow mb-3">
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="/icons/4wheel.png" alt="Logo" class="navbar-logo bg-dark" />
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bid&bull;<span class="four">4</span>&bull;Wheel</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto custom-me gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white " asp-area="" asp-controller="Home" asp-action="Rules">Rules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a>
+                        </li>
+                        @if (userLogin != null)
+                        {
+                            <li class="nav-item dropdown d-flex">
+                                <img src="/icons/user.png" alt="user" class="user-icon" />
+                                <a class="nav-link dropdown-toggle text-white ps-1 acc-link" role="button" data-bs-toggle="dropdown" asp-controller="Account" asp-action="AccountPage">Account</a>
+                                <ul class="dropdown-menu account-dropdown" aria-labelledby="accountDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="AccountPage">My Account</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Auctioned">My Cars</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="WonAuctions">Won Auctions</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Proteges">Proteges</a></li>
+                                    <li><hr class="text-white"></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="MyProfilePage">My Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        } 
+                        else
+                        {
+                            <li class="nav-item d-flex">
+                                <img src="/icons/user.png" alt="user" class="user-icon" />
+                                <a class="nav-link text-white ps-1 acc-link" asp-area="" asp-controller="Account" asp-action="Login">LogIn</a>
+                            </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
+                            <ul class="dropdown-menu lang-dropdown" aria-labelledby="languageDropdown">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Language" asp-route-lang="ro">RO</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Language" asp-route-lang="ru">RU</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Language" asp-route-lang="de">DE</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer border-top text-muted bg-black">
+        <div class="d-flex justify-content-around">
+            <div class="text-light">
+                &copy; 2024 - Bid&bull;4&bull;Wheel - All Rights Reserved &copy;
+            </div>
+            <div>
+                <a href="#">Website Rules And Regulations / </a>
+                <a href="#">Data Privacy</a>
+            </div>
+        </div>
+        
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,359 @@
+html {
+    font-size: 14px;
+    
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: "Kanit", sans-serif;
+}
+
+/*Stilizarea navbar*/
+.navbar {
+    border-bottom: 5px solid red;
+}
+
+/*Stilizare logo*/
+.navbar .navbar-logo {
+    height: 80px;
+    width: auto;
+    margin: 5px 20px 5px 10px;
+}
+
+/*Stilizarea denumirii*/
+.navbar .navbar-brand {
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+}
+
+.four {
+    color: red;
+}
+
+/*Stilizarea pentru linkurile din navbar*/
+.nav-item {
+    font-size: 22px;
+    font-weight: 400; 
+}
+
+.nav-item .user-icon {
+    width: auto;
+    height: 25px;
+    margin-top: 11px;
+}
+
+
+.nav-link:hover {
+    text-decoration: underline;
+    text-decoration-color: red;
+    
+}
+
+
+/*Stilizarea pentru language dropdown*/
+.navbar .lang-dropdown {
+    width: 55px;
+    min-width: 20px;
+    background: black;
+}
+
+.navbar .dropdown-item {
+    color: white;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: red;
+}
+
+.custom-me {
+    margin-right: 80px;
+}
+
+/*stilizarea account dropdown*/
+.navbar .account-dropdown {
+    text-align:center;
+    width: 135px;
+    min-width: 50px;
+    background: black;
+}
+
+
+/*Stilizarea Search-Form*/
+.form-container {
+    background-color: #141414;
+    background-image: url("../img/rareCar.jpg");
+    background-position: right;
+    background-size: auto;
+    background-repeat: no-repeat;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.form-container .form-control {
+    width: 500px;
+    border: 2px solid red;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.form-container .form-input {
+    width: 226px;
+}
+
+.form-container .form-fill {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.form-container .btn {
+    font-size: 22px;
+    color: white;
+    width: 120px;
+    background: red;
+    border-radius: 10px;
+}
+
+/*Stilizarea Register Form*/
+
+.register-container .form-bg {
+    background-image: url("../img/nissan.jpg");
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.register-container .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.register-container h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.register-container p {
+    font-size: 24px;
+    margin-top:15px;
+}
+
+.register-container .reg-fill{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.register-container .form-label {
+    margin-right: 10px;
+}
+
+.register-container .form-input{
+    width: 400px;
+    font-size: 18px;
+}
+
+.reg-btn label {
+    font-size: 20px;
+}
+
+.reg-btn a {
+    color: red;
+}
+
+
+.register-container .btn {
+    font-size: 22px;
+    width: 400px;
+    background: red;
+    border-radius: 10px;
+}
+
+.register-container .check-box {
+    margin-top: 45px;
+    margin-bottom: 5px;
+}
+
+.register-container .check-box a{
+    color: red;
+}
+
+/*Stilizarea login form*/
+.custom-height {
+   height: 400px;
+}
+
+.custom-width{
+    width: 1200px;
+}
+
+.login-form .form-bg {
+    background-color: #0c0c0c;
+    background-image: url("../img/virtual-car-key.jpg");
+    background-size: 370px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.login-form h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.login-form .form-input {
+    width: 400px;
+    font-size: 18px;
+    
+}
+
+.login-form .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.login-form .form-group {
+    margin-left: 0px;
+    font-size: 20px;
+}
+
+.login-form .btn {
+    font-size: 22px;
+    width: 400px;
+    background: red;
+    border-radius: 10px;
+    margin-top: 70px;
+}
+
+.login-btn label {
+    font-size: 20px;
+}
+
+.login-btn a {
+    color: red;
+}
+
+/*Stilizarea My Profile page*/
+.profilePage-form .form-bg {
+    background: #000000;
+    background-image: url("../img/personal-data.png");
+    background-size: 750px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.profilePage-form h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.profilePage-form .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.profilePage-form .form-input {
+    width: 400px;
+    font-size: 18px;
+}
+
+.profilePage-form .form-group {
+    font-size: 20px;
+}
+
+.profilePage-form .btn {
+    font-size: 22px;
+    width: 250px;
+    background: red;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+/*Stilizarea Edit Page*/
+.editPage-form .form-bg {
+    background: #000000;
+    background-image: url("../img/personal-data.png");
+    background-size: 700px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.editPage-form h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.editPage-form .form-input {
+    width: 400px;
+    font-size: 18px;
+}
+
+.editPage-form .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.editPage-form .form-group {
+    font-size: 20px;
+}
+
+.editPage-form .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
+
+
+/*Stilizarea ChangePass Page*/
+.changePass-form .form-bg {
+    background: #000000;
+    background-image: url("../img/personal-data.png");
+    background-size: 700px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.changePass-form h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.changePass-form .form-input {
+    width: 400px;
+    font-size: 18px;
+}
+
+.changePass-form .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.changePass-form .form-group {
+    font-size: 20px;
+}
+
+.changePass-form .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
