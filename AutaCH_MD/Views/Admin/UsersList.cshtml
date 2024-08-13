@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AutaCH_MD.Models.User>
+
+<div class="list d-flex flex-column mt-5 mb-5">
+    <h1 class="text-center">All Users</h1>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success mt-5" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+
+    <div class="d-flex gap-3  mt-5">
+        <a asp-controller="Car" asp-action="CarsList" class="list-btn btn btn-dark">Cars</a>
+        <a asp-controller="Bid" asp-action="BidsList" class="list-btn btn btn-dark">Bids</a>
+    </div>
+
+    <table class="table table-bordered table-dark mt-5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Is Active</th>
+                <th>Type</th>
+                <th>Date and time</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Country</td>
+                    <td>@user.City</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Login</td>
+                    <td>@user.Email</td>
+                    <td>@user.IsActive</td>
+                    <td>@user.Type</td>
+                    <td>@user.DateTime</td>
+                    <td >
+                        <a class="badge rounded-pill bg-success" asp-controller="Admin" asp-action="EditUser" asp-route-userId="@user.UserId">Edit</a>
+                    </td>
+                    <td>
+                        <a class="badge rounded-pill bg-danger" asp-controller="Admin" asp-action="DeleteUser" asp-route-userId="@user.UserId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

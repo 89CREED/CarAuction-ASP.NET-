@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutaCH_MD.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240721214341_Mig1")]
+    [Migration("20240806143624_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -38,9 +38,6 @@ namespace AutaCH_MD.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarInformationInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("DateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -58,8 +55,6 @@ namespace AutaCH_MD.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.HasIndex("CarInformationInfoId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Bids");
@@ -76,75 +71,7 @@ namespace AutaCH_MD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("EndAuction")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstRegister")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Images")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Make")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Mileage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReferenceNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartAuction")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarId");
-
-                    b.ToTable("Cars");
-                });
-
-            modelBuilder.Entity("AutaCH_MD.Models.CarInformation", b =>
-                {
-                    b.Property<Guid>("InfoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Condition")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -162,8 +89,15 @@ namespace AutaCH_MD.Migrations
                     b.Property<bool>("Drive")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("EndAuction")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Engine")
                         .HasColumnType("int");
+
+                    b.Property<string>("FirstRegister")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fuel")
                         .IsRequired()
@@ -172,7 +106,7 @@ namespace AutaCH_MD.Migrations
                     b.Property<int>("Gears")
                         .HasColumnType("int");
 
-                    b.Property<string>("Interior")
+                    b.Property<string>("Images")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -188,6 +122,9 @@ namespace AutaCH_MD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
+
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -199,10 +136,6 @@ namespace AutaCH_MD.Migrations
                     b.Property<decimal>("NewPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("PreviousDamages")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ReferenceNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -210,7 +143,7 @@ namespace AutaCH_MD.Migrations
                     b.Property<bool>("RegistrationCertificate")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Repair")
+                    b.Property<decimal>("RepairCosts")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Seats")
@@ -220,7 +153,10 @@ namespace AutaCH_MD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ServiceBook")
+                    b.Property<DateTime>("StartAuction")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TimeRemaining")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -235,12 +171,12 @@ namespace AutaCH_MD.Migrations
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("InfoId");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CarId")
-                        .IsUnique();
+                    b.HasKey("CarId");
 
-                    b.ToTable("CarInformation");
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("AutaCH_MD.Models.User", b =>
@@ -314,6 +250,9 @@ namespace AutaCH_MD.Migrations
                     b.Property<bool>("TermsAccepted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -327,10 +266,6 @@ namespace AutaCH_MD.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AutaCH_MD.Models.CarInformation", null)
-                        .WithMany("Bids")
-                        .HasForeignKey("CarInformationInfoId");
-
                     b.HasOne("AutaCH_MD.Models.User", "User")
                         .WithMany("Bids")
                         .HasForeignKey("UserId")
@@ -342,26 +277,7 @@ namespace AutaCH_MD.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AutaCH_MD.Models.CarInformation", b =>
-                {
-                    b.HasOne("AutaCH_MD.Models.Car", "Car")
-                        .WithOne("CarInformation")
-                        .HasForeignKey("AutaCH_MD.Models.CarInformation", "CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("AutaCH_MD.Models.Car", b =>
-                {
-                    b.Navigation("Bids");
-
-                    b.Navigation("CarInformation")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AutaCH_MD.Models.CarInformation", b =>
                 {
                     b.Navigation("Bids");
                 });

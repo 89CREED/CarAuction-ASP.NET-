@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AutaCH_MD.Models.Car>
+
+<div class="list d-flex flex-column mt-5 mb-5">
+    <h1 class="text-center">All Cars</h1>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success mt-5" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+
+    <div class="d-flex justify-content-between mt-5">
+        <div class="d-flex gap-3">
+            <a asp-controller="Admin" asp-action="UsersList" class="list-btn btn btn-dark">Users</a>
+            <a asp-controller="Bid" asp-action="BidsList" class="list-btn btn btn-dark">Bids</a>
+        </div>
+        <div>
+            <a asp-controller="Car" asp-action="AddCar" class="list-btn btn btn-dark">+ Add Car</a>
+        </div>
+    </div>
+    
+    <table class="table table-bordered table-dark mt-5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Start Auction</th>
+                <th>End Auction</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Body</th>
+                <th>Year</th>
+                <th>Mileage</th>
+                <th>New Price</th>
+                <th>Is Active</th>
+                <th>Date and time</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.CarId</td>
+                    <td>@car.StartAuction</td>
+                    <td>@car.EndAuction</td>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@car.Body</td>
+                    <td>@car.Year</td>
+                    <td>@car.Mileage</td>
+                    <td>@car.NewPrice</td>
+                    <td>@(car.IsActive ? "Yes" : "No")</td>
+                    <td>@car.DateTime</td>
+                    <td>
+                        <a class="badge rounded-pill bg-success" asp-controller="Car" asp-action="EditCar" asp-route-carId="@car.CarId">Edit</a>
+                    </td>
+                    <td>
+                        <a class="badge rounded-pill bg-danger" asp-controller="Car" asp-action="DeleteCar" asp-route-carId="@car.CarId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

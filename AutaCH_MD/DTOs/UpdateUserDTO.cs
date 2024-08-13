@@ -4,6 +4,7 @@ namespace AutaCH_MD.DTOs
 {
     public class UpdateUserDTO
     {
+        public Guid UserId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -22,5 +23,6 @@ namespace AutaCH_MD.DTOs
         public string ApartmentNumber { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+
     }
 }

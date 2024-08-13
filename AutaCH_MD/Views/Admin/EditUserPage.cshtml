@@ -1,0 +1,96 @@
+﻿@model AutaCH_MD.DTOs.AdminUpdateUserDTO;
+
+<div class="editPage-form d-flex flex-column align-items-center">
+    <h1 class="mt-5">Update User Info</h1>
+
+    <form asp-controller="Admin" asp-action="EditUser" method="post" class="form-bg form-control mt-5 p-5 d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+        <div>
+            <input type="hidden" asp-for="UserId" />
+            <div class="edit-fill form-group">
+                <label asp-for="FirstName" class="form-label text-light">First Name</label>
+                <input asp-for="FirstName" placeholder="First Name" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="LastName" class="form-label text-light">Last Name</label>
+                <input asp-for="LastName" placeholder="Last Name" class="form-control form-input" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Country" class="form-label text-light">Country</label>
+                <input asp-for="Country" placeholder="Country" class="form-control form-input" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="City" class="form-label text-light">City</label>
+                <input asp-for="City" placeholder="City" class="form-control form-input" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="PostalCode" class="form-label text-light">Postal Code</label>
+                <input asp-for="PostalCode" placeholder="Postal Code" class="form-control form-input" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Street" class="form-label text-light">Street</label>
+                <input asp-for="Street" placeholder="Street" class="form-control form-input" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="HouseNumber" class="form-label text-light">House Number</label>
+                <input asp-for="HouseNumber" placeholder="House Number" class="form-control form-input" />
+                <span asp-validation-for="HouseNumber" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="ApartmentNumber" class="form-label text-light">Ap. Number</label>
+                <input asp-for="ApartmentNumber" placeholder="Ap. Number" class="form-control form-input" />
+                <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="PhoneNumber" class="form-label text-light">Phone Number</label>
+                <input asp-for="PhoneNumber" placeholder="Phone Number" class="form-control form-input" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Login" class="form-label text-light">Login</label>
+                <input asp-for="Login" placeholder="Login" class="form-control form-input" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Password" class="form-label text-light">Password</label>
+                <input asp-for="Password" placeholder="Password" class="form-control form-input" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Email" class="form-label text-light">Email</label>
+                <input asp-for="Email" placeholder="Email" class="form-control form-input" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="DateTime" class="form-label text-light">Date and Time</label>
+                <input asp-for="DateTime" placeholder="Date and Time" class="form-control form-input" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Type" class="form-label text-light">Type</label>
+                <input asp-for="Type" placeholder="Type" class="form-control form-input" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="IsActive" class="form-label text-light">Is Active</label>
+                <div>
+                    <input type="radio" asp-for="IsActive" value="true" id="activeYes" />
+                    <label class="form-label text-light" for="activeYes">Yes</label>
+                    <input class="ms-5" type="radio" asp-for="IsActive" value="false" id="activeNo" />
+                    <label class="form-label text-light" for="activeNo">No</label>
+                </div>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="edit-btn d-flex flex-column align-items-center mt-5">
+            <button type="submit" class="btn btn-light">Save Changes</button>
+            <a asp-controller="Admin" asp-action="UsersList" class="btn btn-light mt-3">Back</a>
+        </div>
+    </form>
+</div>

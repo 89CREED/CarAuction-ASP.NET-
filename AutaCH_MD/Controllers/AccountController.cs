@@ -3,6 +3,7 @@ using AutaCH_MD.DTOs;
 using AutaCH_MD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Diagnostics.CodeAnalysis;
 
@@ -33,16 +34,16 @@ namespace AutaCH_MD.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(UserDTO userDTO)
         {
-            if(!userDTO.TermsAccepted || !userDTO.AknowledgeAccepted)
+            if (!userDTO.TermsAccepted || !userDTO.AknowledgeAccepted)
             {
-                if(!userDTO.TermsAccepted)
+                if (!userDTO.TermsAccepted)
                 {
                     ModelState.AddModelError("TermsAccepted", "You must agree to the terms of use and data policy.");
                 }
 
-                if(!userDTO.AknowledgeAccepted)
+                if (!userDTO.AknowledgeAccepted)
                 {
-                    ModelState.AddModelError("AknoledgeAccepted", "You must understand that all offers are binding and cannot be withdrawn.");
+                    ModelState.AddModelError("AknowledgeAccepted", "You must understand that all offers are binding and cannot be withdrawn.");
                 }
 
                 return View(userDTO);
@@ -50,7 +51,7 @@ namespace AutaCH_MD.Controllers
 
             if (ModelState.IsValid)
             {
-                if(_ctx.Users.Any(user => user.Email == userDTO.Email || user.Login == userDTO.Login))
+                if (_ctx.Users.Any(user => user.Email == userDTO.Email || user.Login == userDTO.Login))
                 {
                     ModelState.AddModelError(string.Empty, "User with the same email or login already exists.");
                     return View(userDTO);
@@ -71,27 +72,59 @@ namespace AutaCH_MD.Controllers
                     Email = userDTO.Email,
                     TermsAccepted = userDTO.TermsAccepted,
                     AknowledgeAccepted = userDTO.AknowledgeAccepted,
+                    IsActive = true,
+                    Type = "user"
                 };
-
                 user.Password = _passHasher.HashPassword(user, userDTO.Password);
-                
-                if(user.IsActive == false)
-                {
-                    user.IsActive = true;
-                    this._ctx.Users.Add(user);
-                    this._ctx.SaveChanges();
-                }
-                return RedirectToAction("Login");
-            }
 
+                try
+                {
+                    _ctx.Users.Add(user);
+                    _ctx.SaveChanges();
+                    TempData["SuccessMessage"] = "Registered successfully.";
+                    return RedirectToAction("Login");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred while saving data: " + ex.Message);
+                }
+            }  
             return View(userDTO);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(UserDTO userDTO)
         {
-            var existingUser = this._ctx.Users.FirstOrDefault(user => user.Login == userDTO.Login && user.IsActive == true);
+            // Verifică dacă loginul este pentru un admin
+            var adminUser = this._ctx.Users
+                .FirstOrDefault(user => user.Login == userDTO.Login && user.Type == "admin" && user.IsActive);
+
+            if (adminUser != null)
+            {
+                var result = _passHasher.VerifyHashedPassword(adminUser, adminUser.Password, userDTO.Password);
+
+                if (result == PasswordVerificationResult.Success)
+                {
+                    HttpContext.Session.SetString("Type", adminUser.Type);// Salvează "admin" în sesiune
+                    HttpContext.Session.SetString("Login", adminUser.Login);
+                    var cookie = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddYears(1),
+                    };
+
+                    Response.Cookies.Append("UserId", adminUser.UserId.ToString(), cookie);
+                    Response.Cookies.Append("Type", adminUser.Type.ToString(), cookie);
+                    return RedirectToAction("AdminPage", "Admin");
+                }
+            }
+
+            // Verifică dacă loginul este pentru un utilizator obișnuit
+            var existingUser = this._ctx.Users
+                .FirstOrDefault(user => user.Login == userDTO.Login && user.IsActive && user.Type == "user" );
+
             if (existingUser != null)
             {
                 var result = _passHasher.VerifyHashedPassword(existingUser, existingUser.Password, userDTO.Password);
@@ -106,18 +139,18 @@ namespace AutaCH_MD.Controllers
                     };
 
                     Response.Cookies.Append("UserId", existingUser.UserId.ToString(), cookie);
-
-                    return RedirectToAction("AccountPage");
+                    return RedirectToAction("AccountPage", "Account");
                 }
             }
-            
+
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(userDTO);
-
         }
+
 
         public IActionResult AccountPage()
         {
+            var userType = HttpContext.Session.GetString("Type");
             var login = HttpContext.Session.GetString("Login");
 
             if (login != null)
@@ -144,78 +177,84 @@ namespace AutaCH_MD.Controllers
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditProfile(UpdateUserDTO updateUserDto)
+        [HttpGet]
+        public IActionResult EditProfile(Guid? userId)
         {
-            var userId = Request.Cookies["UserId"];
-            if (userId != null)
+            if(!userId.HasValue)
             {
-                var existingUser = _ctx.Users.SingleOrDefault(user => user.UserId.ToString() == userId);
-                if (existingUser != null)
+                var currentUser = Request.Cookies["UserId"];
+                if(currentUser != null)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        existingUser.FirstName = updateUserDto.FirstName;
-                        existingUser.LastName = updateUserDto.LastName;
-                        existingUser.Country = updateUserDto.Country;
-                        existingUser.City = updateUserDto.City;
-                        existingUser.PostalCode = updateUserDto.PostalCode;
-                        existingUser.Street = updateUserDto.Street;
-                        existingUser.HouseNumber = updateUserDto.HouseNumber;
-                        existingUser.ApartmentNumber = updateUserDto.ApartmentNumber;
-                        existingUser.PhoneNumber = updateUserDto.PhoneNumber;
-                        try
-                        {
-                            _ctx.SaveChanges();
-                            return RedirectToAction("MyProfilePage");
-                        }
-                        catch (Exception ex)
-                        { 
-                            ModelState.AddModelError(string.Empty, "An error occurred while saving data: " + ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "The data entered is not valid.");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "The user cannot be found..");
+                    userId = Guid.Parse(currentUser);
                 }
             }
-            return View(updateUserDto);
-        }
 
-
-        public IActionResult EditProfile()
-        {
-            var userId = Request.Cookies["UserId"];
-            if (userId != null)
+            var existingUser = this._ctx.Users.SingleOrDefault(user => user.UserId == userId);
+            if(existingUser != null)
             {
-                var user = _ctx.Users.SingleOrDefault(user => user.UserId.ToString() == userId);
-                if (user != null)
+                var dto = new UpdateUserDTO
                 {
-                    var dto = new UpdateUserDTO
-                    {
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Country = user.Country,
-                        City = user.City,
-                        PostalCode = user.PostalCode,
-                        Street = user.Street,
-                        HouseNumber = user.HouseNumber,
-                        ApartmentNumber = user.ApartmentNumber,
-                        PhoneNumber = user.PhoneNumber,
-                    };
-
-                    return View(dto);
-                }
+                    UserId = existingUser.UserId,
+                    FirstName = existingUser.FirstName,
+                    LastName = existingUser.LastName,
+                    Country = existingUser.Country,
+                    City = existingUser.City,
+                    PostalCode = existingUser.PostalCode,
+                    Street = existingUser.Street,
+                    HouseNumber = existingUser.HouseNumber,
+                    ApartmentNumber = existingUser.ApartmentNumber,
+                    PhoneNumber = existingUser.PhoneNumber,
+                };
+                return View(dto);
             }
             return RedirectToAction("Login");
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProfile(UpdateUserDTO updateUserDto)
+        {
+            var existingUser = this._ctx.Users.SingleOrDefault(user => user.UserId == updateUserDto.UserId);
+            if (existingUser != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    existingUser.UserId = updateUserDto.UserId;
+                    existingUser.FirstName = updateUserDto.FirstName;
+                    existingUser.LastName = updateUserDto.LastName;
+                    existingUser.Country = updateUserDto.Country;
+                    existingUser.City = updateUserDto.City;
+                    existingUser.PostalCode = updateUserDto.PostalCode;
+                    existingUser.Street = updateUserDto.Street;
+                    existingUser.HouseNumber = updateUserDto.HouseNumber;
+                    existingUser.ApartmentNumber = updateUserDto.ApartmentNumber;
+                    existingUser.PhoneNumber = updateUserDto.PhoneNumber;
+                    try
+                    {
+                        this._ctx.SaveChanges();
+                        TempData["SuccessMessage"] = "Profile updated successfully.";
+                        return RedirectToAction("MyProfilePage");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, "An error occurred while saving data: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "The data entered is not valid.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("UserId:" + existingUser);
+                ModelState.AddModelError(string.Empty, "The user cannot be found.");
+            }
+            return View(updateUserDto);
+        }
+        
+ 
         public IActionResult ChangePassword()
         {
             return View();
@@ -251,6 +290,7 @@ namespace AutaCH_MD.Controllers
                             try
                             {
                                 _ctx.SaveChanges();
+                                TempData["SuccessMessage"] = "Password updated successfully.";
                                 return RedirectToAction("MyProfilePage");
                             }
                             catch (Exception ex)
@@ -281,6 +321,70 @@ namespace AutaCH_MD.Controllers
             return View(newPassDto);
         }
 
+        public IActionResult MyCars()
+        {
+            var userIdCookie = Request.Cookies["UserId"];
+
+            if(!Guid.TryParse(userIdCookie, out Guid userId))
+            {
+                return RedirectToAction("Home");
+            }
+
+            var cars = this._ctx.Cars
+                .Where(car => car.Bids.Any(bid => bid.UserId == userId))
+                .Include(car => car.Bids)
+                .Select(car => new CarDTO
+                {
+                    CarId = car.CarId,
+                    Make = car.Make,
+                    Model = car.Model,
+                    Year = car.Year,
+                    Mileage = car.Mileage,
+                    ReferenceNumber = car.ReferenceNumber,
+                    Images = car.Images,
+                    EndAuction = car.EndAuction,
+                    UserBid = car.Bids
+                        .Where(bid => bid.UserId == userId)
+                        .Select(bid => bid.BidAmount)
+                        .FirstOrDefault()
+
+                })
+                .ToList();
+
+            return View(cars);
+        }
+
+
+
+        public IActionResult WatchList()
+        {
+
+            var cars = this._ctx.Cars.ToList();
+
+            var model = new CarListViewModel
+            {
+                Cars = cars
+            };
+
+            return View("WatchList", model);
+        }
+
+        [HttpPost]
+        public IActionResult GetWatchList([FromBody] List<Guid> watchListCarIds)
+        {
+            var cars = _ctx.Cars
+                .Where(car => watchListCarIds.Contains(car.CarId))
+                .ToList();
+
+
+            var model = new CarListViewModel
+            {
+              Cars = cars
+            };
+
+            return View("WatchList", model);
+        }
+
 
 
         public IActionResult Logout()
@@ -288,9 +392,14 @@ namespace AutaCH_MD.Controllers
             HttpContext.Session.Clear();
             Response.Cookies.Append("UserId", "", new CookieOptions
             {
-                Expires= DateTime.Now.AddDays(-1),
+                Expires = DateTime.Now.AddDays(-1),
             });
-            return RedirectToAction("Index", "Home");
+
+            Response.Cookies.Append("UserType", "", new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-1),
+            });
+            return RedirectToAction("Login");
         }
 
 

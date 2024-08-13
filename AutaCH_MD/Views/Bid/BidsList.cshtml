@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AutaCH_MD.Models.Bid>
+
+<div class="list d-flex flex-column mt-5 mb-5">
+    <h1 class="text-center">All Bids</h1>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success mt-5" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+
+    <div class="d-flex gap-3  mt-5">
+        <a asp-controller="Admin" asp-action="UsersList" class="list-btn btn btn-dark">Users</a>
+        <a asp-controller="Car" asp-action="CarsList" class="list-btn btn btn-dark">Cars</a>
+    </div>
+
+    <table class="table table-bordered table-dark mt-5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>UserId</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>CarId</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Year</th>
+                <th>Bid Amount</th>
+                <th>Date and time</th>
+                <th>Is Active</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bid in Model)
+            {
+                <tr>
+                    <td>@bid.BidId</td>
+                    <td>@bid.UserId</td>
+                    <td>@bid.User.FirstName</td>
+                    <td>@bid.User.LastName</td>
+                    <td>@bid.CarId</td>
+                    <td>@bid.Car.Make</td>
+                    <td>@bid.Car.Model</td>
+                    <td>@bid.Car.Color</td>
+                    <td>@bid.Car.Year</td>
+                    <td>@bid.BidAmount</td>
+                    <td>@bid.DateTime</td>
+                    <td>@(bid.IsActive ? "Yes" : "No")</td>
+                    <td>
+                        <a class="badge rounded-pill bg-success" asp-controller="Bid" asp-action="EditBid" asp-route-bidId="@bid.BidId">Edit</a>
+                    </td>
+                    <td>
+                        <a class="badge rounded-pill bg-danger" asp-controller="Bid" asp-action="DeleteBid" asp-route-bidId="@bid.BidId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

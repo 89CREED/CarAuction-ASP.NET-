@@ -1,0 +1,23 @@
+﻿@model AutaCH_MD.Models.User;
+
+
+<div class="adminPage d-flex flex-column align-items-center justify-content-center mt-5">
+    <h1>Welcome back, @Model.FirstName</h1>
+    <div class="content d-flex">
+        <div class="section d-flex flex-column gap-5 me-5">
+            <img src="/icons/users.png" alt="Users" />
+            <a asp-controller="Admin" asp-action="UsersList" class="btn btn-dark">Users</a>
+        </div>
+        <div class="section d-flex flex-column gap-5 me-5">
+            <img src="~/icons/cars.png" />
+            <a asp-controller="Car" asp-action="CarsList" class="btn btn-dark">Cars</a>
+        </div>
+        <div class="section d-flex flex-column gap-5">
+            <img src="/icons/bids.png" />
+            <a asp-controller="Bid" asp-action="BidsList" class="btn btn-dark">Bids</a>
+        </div>
+        
+    </div>
+
+</div>
+

@@ -1,0 +1,171 @@
+﻿@model AutaCH_MD.DTOs.CarDTO;
+
+<div class="addCar d-flex flex-column align-items-center">
+    <h1 class="mt-5">Add Car</h1>
+
+    <form asp-controller="Car" asp-action="AddCar" enctype="multipart/form-data" method="post" class="form-bg bg-black form-control mt-5 mb-5 p-5 d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+
+        <div class="d-flex gap-5">
+            <div class="d-flex flex-column">
+                <div class="add-input form-group">
+                    <label asp-for="StartAuction" class="form-label text-light">Start Auction</label>
+                    <input asp-for="StartAuction" class="form-control form-input" />
+                    <span asp-validation-for="StartAuction" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="EndAuction" class="form-label text-light">End Auction</label>
+                    <input asp-for="EndAuction" class="form-control form-input" />
+                    <span asp-validation-for="EndAuction" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Make" class="form-label text-light">Make</label>
+                    <input asp-for="Make" placeholder="Make" class="form-control form-input" />
+                    <span asp-validation-for="Make" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Model" class="form-label text-light">Model</label>
+                    <input asp-for="Model" placeholder="Model" class="form-control form-input" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Body" class="form-label text-light">Body</label>
+                    <input asp-for="Body" placeholder="Body" class="form-control form-input" />
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Color" class="form-label text-light">Color</label>
+                    <input asp-for="Color" placeholder="Color" class="form-control form-input" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Engine" class="form-label text-light">Engine</label>
+                    <input asp-for="Engine" placeholder="Engine" class="form-control form-input" />
+                    <span asp-validation-for="Engine" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Fuel" class="form-label text-light">Fuel</label>
+                    <input asp-for="Fuel" placeholder="Fuel" class="form-control form-input" />
+                    <span asp-validation-for="Fuel" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Transmission" class="form-label text-light">Transmission</label>
+                    <input asp-for="Transmission" placeholder="Transmission" class="form-control form-input" />
+                    <span asp-validation-for="Transmission" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Gears" class="form-label text-light">Gears</label>
+                    <input asp-for="Gears" placeholder="Gears" class="form-control form-input" />
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Doors" class="form-label text-light">Doors</label>
+                    <input asp-for="Doors" placeholder="Doors" class="form-control form-input" />
+                    <span asp-validation-for="Doors" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Seats" class="form-label text-light">Seats</label>
+                    <input asp-for="Seats" placeholder="Seats" class="form-control form-input" />
+                    <span asp-validation-for="Seats" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Tires" class="form-label text-light">Tires</label>
+                    <input asp-for="Tires" placeholder="Tires" class="form-control form-input" />
+                    <span asp-validation-for="Tires" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Key" class="form-label text-light">Key</label>
+                    <input asp-for="Key" placeholder="Key" class="form-control form-input" />
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                
+                <div class="add-input form-group">
+                    <label asp-for="Year" class="form-label text-light">Year</label>
+                    <input asp-for="Year" placeholder="Year" class="form-control form-input" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="FirstRegister" class="form-label text-light">First Registration</label>
+                    <input asp-for="FirstRegister" placeholder="First Registration" class="form-control form-input" />
+                    <span asp-validation-for="FirstRegister" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Mileage" class="form-label text-light">Mileage</label>
+                    <input asp-for="Mileage" placeholder="Mileage" class="form-control form-input" />
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="ReferenceNumber" class="form-label text-light">Reference Number</label>
+                    <input asp-for="ReferenceNumber" placeholder="Reference Number" class="form-control form-input" />
+                    <span asp-validation-for="ReferenceNumber" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="NewPrice" class="form-label text-light">Price</label>
+                    <input asp-for="NewPrice" placeholder="Price" class="form-control form-input" />
+                    <span asp-validation-for="NewPrice" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Value" class="form-label text-light">Value</label>
+                    <input asp-for="Value" placeholder="Value" class="form-control form-input" />
+                    <span asp-validation-for="Value" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="RepairCosts" class="form-label text-light">Repair Costs</label>
+                    <input asp-for="RepairCosts" placeholder="Repair Costs" class="form-control form-input" />
+                    <span asp-validation-for="RepairCosts" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="MoreInfo" class="form-label text-light">More Info</label>
+                    <input asp-for="MoreInfo" placeholder="More Info" class="form-control form-input" />
+                    <span asp-validation-for="MoreInfo" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="SerialEquipment" class="form-label text-light">Serial Equipment</label>
+                    <input asp-for="SerialEquipment" placeholder="Serial Equipment" class="form-control form-input" />
+                    <span asp-validation-for="SerialEquipment" class="text-danger"></span>
+                </div>
+                <div class="edit-fill form-group">
+                    <label asp-for="RegistrationCertificate" class="form-label text-light">Registration Certificate</label>
+                    <div class="mt-1">
+                        <input type="radio" asp-for="RegistrationCertificate" value="true" id="registerYes" />
+                        <label class="form-label text-light" for="registerYes">Yes</label>
+                        <input class="ms-5" type="radio" asp-for="RegistrationCertificate" value="false" id="registerNo" />
+                        <label class="form-label text-light" for="registerNo">No</label>
+                    </div>
+                    <span asp-validation-for="RegistrationCertificate" class="text-danger"></span>
+                </div>
+                <div class="edit-fill form-group">
+                    <label asp-for="Drive" class="form-label text-light">Run and Drive</label>
+                    <div class="mt-1">
+                        <input type="radio" asp-for="Drive" value="true" id="driveYes" />
+                        <label class="form-label text-light" for="driveYes">Yes</label>
+                        <input class="ms-5" type="radio" asp-for="Drive" value="false" id="driveNo" />
+                        <label class="form-label text-light" for="driveNo">No</label>
+                    </div>
+                    <span asp-validation-for="Drive" class="text-danger"></span>
+                </div>
+                <div class="edit-fill form-group">
+                    <label asp-for="Damaged" class="form-label text-light">Damaged</label>
+                    <div class="mt-1">
+                        <input type="radio" asp-for="Damaged" value="true" id="dmgYes" />
+                        <label class="form-label text-light" for="dmgYes">Yes</label>
+                        <input class="ms-5" type="radio" asp-for="Damaged" value="false" id="dmgNo" />
+                        <label class="form-label text-light" for="dmgNo">No</label>
+                    </div>
+                    <span asp-validation-for="Damaged" class="text-danger"></span>
+                </div>
+                <div class="add-input form-group">
+                    <label asp-for="Images" class="form-label text-light">Images</label>
+                    <input type="file" name="images" class="form-control form-input" multiple />
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="add-btn d-flex flex-column align-items-center mt-5">
+            <button type="submit" class="btn btn-dark">Add Car</button>
+            <a asp-controller="Car" asp-action="CarsList" class="btn btn-dark mt-3">Back</a>
+        </div>
+    </form>
+</div>

@@ -3,6 +3,14 @@
 <div class="login-form d-flex flex-column align-items-center">
     <h1 class="mt-5">Login</h1>
     <form asp-action="Login" asp-controller="Account" method="post" class="form-control form-bg custom-width mt-5 p-5">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+
         <div class="form-group">
             <label asp-for="Login" class="form-label text-light">Username/Email</label>
             <input asp-for="Login" placeholder="Username/Email" class="form-control form-input"/>
@@ -18,5 +26,5 @@
             <label class="form-label text-light mt-3">No Account? <a href="Register">Create One!</a></label>
         </div>
     </form>
-    <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+    
 </div>

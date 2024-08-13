@@ -39,6 +39,7 @@ namespace AutaCH_MD.Models
         public bool AknowledgeAccepted {  get; set; }
         public bool IsActive { get; set; }
         public DateTime DateTime { get; set; }
+        public string? Type { get; set; }
 
         public ICollection<Bid> Bids { get; set; }
     }

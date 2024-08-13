@@ -1,22 +1,20 @@
-html {
+﻿html {
     font-size: 14px;
-    
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
     position: relative;
     min-height: 100%;
-    
 }
 
 body {
@@ -29,19 +27,19 @@ body {
     border-bottom: 5px solid red;
 }
 
-/*Stilizare logo*/
-.navbar .navbar-logo {
-    height: 80px;
-    width: auto;
-    margin: 5px 20px 5px 10px;
-}
+    /*Stilizare logo*/
+    .navbar .navbar-logo {
+        height: 80px;
+        width: auto;
+        margin: 5px 20px 5px 10px;
+    }
 
-/*Stilizarea denumirii*/
-.navbar .navbar-brand {
-    font-size: 45px;
-    font-weight: bold;
-    color: white;
-}
+    /*Stilizarea denumirii*/
+    .navbar .navbar-brand {
+        font-size: 45px;
+        font-weight: bold;
+        color: white;
+    }
 
 .four {
     color: red;
@@ -50,20 +48,19 @@ body {
 /*Stilizarea pentru linkurile din navbar*/
 .nav-item {
     font-size: 22px;
-    font-weight: 400; 
+    font-weight: 400;
 }
 
-.nav-item .user-icon {
-    width: auto;
-    height: 25px;
-    margin-top: 11px;
-}
+    .nav-item .user-icon {
+        width: auto;
+        height: 25px;
+        margin-top: 11px;
+    }
 
 
 .nav-link:hover {
     text-decoration: underline;
     text-decoration-color: red;
-    
 }
 
 
@@ -78,9 +75,9 @@ body {
     color: white;
 }
 
-.navbar .dropdown-item:hover {
-    background-color: red;
-}
+    .navbar .dropdown-item:hover {
+        background-color: red;
+    }
 
 .custom-me {
     margin-right: 80px;
@@ -88,10 +85,16 @@ body {
 
 /*stilizarea account dropdown*/
 .navbar .account-dropdown {
-    text-align:center;
+    text-align: center;
     width: 135px;
     min-width: 50px;
     background: black;
+}
+
+
+
+#content {
+    max-width: 140%;
 }
 
 
@@ -106,29 +109,29 @@ body {
     border-radius: 10px;
 }
 
-.form-container .form-control {
-    width: 500px;
-    border: 2px solid red;
-    border-radius: 10px;
-    font-size: 18px;
-}
+    .form-container .form-control {
+        width: 500px;
+        border: 2px solid red;
+        border-radius: 10px;
+        font-size: 18px;
+    }
 
-.form-container .form-input {
-    width: 226px;
-}
+    .form-container .form-input {
+        width: 226px;
+    }
 
-.form-container .form-fill {
-    font-size: 20px;
-    margin-bottom: 12px;
-}
+    .form-container .form-fill {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
 
-.form-container .btn {
-    font-size: 22px;
-    color: white;
-    width: 120px;
-    background: red;
-    border-radius: 10px;
-}
+    .form-container .btn {
+        font-size: 22px;
+        color: white;
+        width: 120px;
+        background: red;
+        border-radius: 10px;
+    }
 
 /*Stilizarea Register Form*/
 
@@ -151,10 +154,10 @@ body {
 
 .register-container p {
     font-size: 24px;
-    margin-top:15px;
+    margin-top: 15px;
 }
 
-.register-container .reg-fill{
+.register-container .reg-fill {
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -163,7 +166,7 @@ body {
     margin-right: 10px;
 }
 
-.register-container .form-input{
+.register-container .form-input {
     width: 400px;
     font-size: 18px;
 }
@@ -189,16 +192,16 @@ body {
     margin-bottom: 5px;
 }
 
-.register-container .check-box a{
-    color: red;
-}
+    .register-container .check-box a {
+        color: red;
+    }
 
 /*Stilizarea login form*/
 .custom-height {
-   height: 400px;
+    height: 400px;
 }
 
-.custom-width{
+.custom-width {
     width: 1200px;
 }
 
@@ -219,7 +222,6 @@ body {
 .login-form .form-input {
     width: 400px;
     font-size: 18px;
-    
 }
 
 .login-form .form-control {
@@ -285,11 +287,11 @@ body {
     margin-top: 50px;
 }
 
-/*Stilizarea Edit Page*/
+/*Stilizarea EditUser Page*/
 .editPage-form .form-bg {
     background: #000000;
     background-image: url("../img/personal-data.png");
-    background-size: 700px;
+    background-size: 800px;
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -321,6 +323,14 @@ body {
     border-radius: 10px;
 }
 
+/*Delete user*/
+.delete-form p{
+    font-size: 20px;
+}
+
+.delete-form strong {
+    color: #DC3545;
+}
 
 /*Stilizarea ChangePass Page*/
 .changePass-form .form-bg {
@@ -357,3 +367,236 @@ body {
     background: red;
     border-radius: 10px;
 }
+
+/*Stilizarea AdminPage*/
+.adminPage h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.adminPage .content {
+    margin-top: 130px;
+    gap: 150px;
+}
+
+.section a {
+    font-size: 22px;
+    background: red;
+    border-radius: 10px;
+}
+
+
+/*Stilizarea Lists*/
+.list-btn {
+    font-size: 22px;
+    width: 120px;
+    background: red;
+    border-radius: 10px;
+}
+
+/*Stilizarea UsersListPage*/
+.list h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+/*Stilizarea AddCar*/
+.addCar .form-bg {
+    background: #141B22;
+    background-image: url("../img/addCar.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.addCar h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.addCar .form-input {
+    width: 400px;
+    font-size: 18px;
+}
+
+.addCar .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.addCar .form-group {
+    font-size: 20px;
+}
+
+.addCar .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
+
+/*DeleteCarPage*/
+.delete-car .form-bg {
+    background: #020E1A;
+    background-image: url("../img/car-data.png");
+    background-size: 900px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.delete-car h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.delete-car .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.delete-car .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
+
+/*Edit Bid*/
+.edit-bid .form-bg {
+    background: #141B22;
+    background-image: url("../img/bidsheet (1).png");
+    background-size: 700px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.edit-bid h1 {
+    font-size: 55px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.edit-bid .form-input {
+    width: 400px;
+    font-size: 18px;
+}
+
+.edit-bid .form-control {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.edit-bid .form-group {
+    font-size: 20px;
+}
+
+.edit-bid .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
+
+
+/*Stilizarea Car-Card*/
+.car-section .title {
+    font-size: 35px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.car-section .btn-icon {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.car-section i {
+    font-size: 26px;
+}
+
+
+.car-section .card {
+    border: 2px solid red;
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px black;
+    background: #141414;
+    color: white;
+}
+
+.img-section img {
+    border-right: 1px solid red;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card-body .card-title {
+    font-size: 36px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.info {
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.timer {
+    font-size: 24px;
+    color: red;
+}
+
+
+/*Stilizarea CarDetails*/
+.preview-image{
+    cursor: pointer;
+}
+
+.car-info .car-title {
+    font-size: 35px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.car-info .car-details p{
+    font-size: 24px;
+}
+
+.car-info .car-details ul {
+    font-size: 20px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.car-info .btn {
+    font-size: 22px;
+    width: 300px;
+    background: red;
+    border-radius: 10px;
+}
+
+.col {
+    font-size: 20px;
+}
+
+.column {
+    display: flex;
+    gap: 100px;
+}
+
+.more-info .container {
+    margin-left: 80px;
+}
+
+.more-info h1 {
+    font-size: 35px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+

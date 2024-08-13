@@ -22,5 +22,6 @@ namespace AutaCH_MD.Models
         public decimal BidAmount {  get; set; }
         public DateTime DateTime { get; set; }
         public bool IsActive { get; set; }
+
     }
 }

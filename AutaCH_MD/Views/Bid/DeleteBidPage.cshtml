@@ -1,0 +1,34 @@
+﻿@model AutaCH_MD.DTOs.BidDTO;
+
+<div class="edit-bid d-flex flex-column align-items-center">
+    <h1 class="mt-5">Delete Bid</h1>
+
+    <form asp-controller="Bid" asp-action="DeleteBidConfirm" method="post" class="delete-form form-bg form-control mt-5 mb-5 p-5 d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+        <div>
+            <input type="hidden" asp-for="BidId" />
+            <h2 class="text-center text-danger">Are you sure you want to delete this Bid?</h2>
+            <div class="text-white mt-4">
+                <p><strong>Car ID:</strong> @Model.CarId</p>
+                <p><strong>Start Auction:</strong> @Model.BidId</p>
+                <p><strong>End Auction:</strong> @Model.UserId</p>
+                <p><strong>Make:</strong> @Model.FirstName</p>
+                <p><strong>Model:</strong> @Model.LastName</p>
+                <p><strong>Body:</strong> @Model.CarId</p>
+                <p><strong>Color:</strong> @Model.Make</p>
+                <p><strong>Engine:</strong> @Model.Model</p>
+                <p><strong>Fuel:</strong> @Model.Year</p>
+                <p><strong>Transmission:</strong> @Model.Color</p>
+                <p><strong>Gears:</strong> @Model.BidAmount</p>
+                <p><strong>Date and Time:</strong> @Model.DateTime</p>
+                <p><strong>Is Active:</strong> @(Model.IsActive ? "Yes" : "No")</p>
+            </div>
+        </div>
+
+        <div class="edit-btn d-flex flex-column align-items-center mt-5">
+            <button type="submit" class="btn btn-light">Delete</button>
+            <a asp-controller="Bid" asp-action="BidsList" class="btn btn-light mt-3">Back</a>
+        </div>
+    </form>
+</div>
+

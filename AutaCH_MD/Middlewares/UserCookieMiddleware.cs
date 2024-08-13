@@ -26,6 +26,7 @@ namespace AutaCH_MD.Middlewares
                         if (user != null)
                         {
                             ctx.Session.SetString("Login", user.Login);
+                            ctx.Session.SetString("Type", user.Type);
                         }
 
                         var cookiesOptions = new CookieOptions

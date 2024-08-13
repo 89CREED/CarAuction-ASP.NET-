@@ -1,11 +1,12 @@
 ﻿@model AutaCH_MD.DTOs.UpdateUserDTO;
 
 <div class="editPage-form d-flex flex-column align-items-center">
-    <h1 class="mt-5">Update Personal Info</h1>
+    <h1 class="mt-5">Update Profile Info</h1>
 
     <form asp-controller="Account" asp-action="EditProfile" method="post" class="form-bg form-control mt-5 p-5 d-flex flex-column">
         <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
         <div>
+            <input type="hidden" asp-for="UserId" />
             <div class="edit-fill form-group">
                 <label asp-for="FirstName" class="form-label text-light">First Name</label>
                 <input asp-for="FirstName" placeholder="First Name" class="form-control form-input" />
@@ -59,3 +60,4 @@
         </div>
     </form>
 </div>
+

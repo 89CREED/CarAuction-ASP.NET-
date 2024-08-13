@@ -1,0 +1,76 @@
+﻿@model AutaCH_MD.DTOs.BidDTO;
+
+<div class="edit-bid d-flex flex-column align-items-center">
+    <h1 class="mt-5">Update Bid Info</h1>
+
+    <form asp-controller="Bid" asp-action="EditBid" method="post" class="form-bg form-control mt-5 p-5 d-flex flex-column">
+        <div asp-validation-summary="ModelOnly" class="text-danger mt-2 fs-5 text-decoration-underline"></div>
+        <div>
+            <input type="hidden" asp-for="UserId" />
+            <div class="edit-fill form-group">
+                <label asp-for="BidId" class="form-label text-light">BidId</label>
+                <input asp-for="BidId" readonly class="form-control form-input" />
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="UserId" class="form-label text-light">User ID</label>
+                <input asp-for="UserId" class="form-control form-input" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="FirstName" class="form-label text-light">First Name</label>
+                <input asp-for="FirstName" readonly class="form-control form-input" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="LastName" class="form-label text-light">Last Name</label>
+                <input asp-for="LastName" readonly class="form-control form-input" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="CarId" class="form-label text-light">Car ID</label>
+                <input asp-for="CarId" placeholder="Car ID" class="form-control form-input" />
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Make" class="form-label text-light">Make</label>
+                <input asp-for="Make" readonly class="form-control form-input" />
+                <span asp-validation-for="Make" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Model" class="form-label text-light">Model</label>
+                <input asp-for="Model" readonly class="form-control form-input" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Year" class="form-label text-light">Year</label>
+                <input asp-for="Year" readonly class="form-control form-input" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="Color" class="form-label text-light">Color</label>
+                <input asp-for="Color" readonly class="form-control form-input" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="BidAmount" class="form-label text-light">Amount</label>
+                <input asp-for="BidAmount" placeholder="CHF" class="form-control form-input"/>
+                <span asp-validation-for="BidAmount" class="text-danger"></span>
+            </div>
+            <div class="edit-fill form-group">
+                <label asp-for="IsActive" class="form-label text-light">Is Active</label>
+                <div>
+                    <input type="radio" asp-for="IsActive" value="true" id="activeYes" />
+                    <label class="form-label text-light" for="activeYes">Yes</label>
+                    <input class="ms-5" type="radio" asp-for="IsActive" value="false" id="activeNo" />
+                    <label class="form-label text-light" for="activeNo">No</label>
+                </div>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="edit-btn d-flex flex-column align-items-center mt-5">
+            <button type="submit" class="btn btn-light">Save Changes</button>
+            <a asp-controller="Bid" asp-action="BidsList" class="btn btn-light mt-3">Back</a>
+        </div>
+    </form>
+</div>

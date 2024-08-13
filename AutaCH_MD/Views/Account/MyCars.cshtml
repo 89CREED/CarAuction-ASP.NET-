@@ -1,0 +1,68 @@
+﻿@model IEnumerable<AutaCH_MD.DTOs.CarDTO>
+
+<div class="car-section mt-5 mb-5">
+    <h1 class="title text-center">Auctions and Bids</h1>
+
+    @if (Model.Any())
+    {
+        <div class="car-cards d-flex flex-column gap-5 mt-5">
+            
+            @foreach (var car in Model)
+            {
+                
+                <div class="card d-flex">
+                    <div>test</div>
+                    <div class="row no-gutters">
+                        <div class="img-section col-md-4">
+                            @if (car.Images != null && car.Images.Any())
+                            {
+                                <a asp-controller="Car" asp-action="CarDetails" asp-route-id="@car.CarId">
+                                    <img src="@car.Images.First()" alt="car img" width="350px" height="240px" />
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="~/img/3d-mini-car.png" alt="mini-car" width="350px" height="240px" />
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div>
+                                    <a asp-controller="Car" asp-action="CarDetails" asp-route-id="@car.CarId" class="card-title">@car.Make @car.Model</a>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="card-text info">
+                                        <p>Year: @car.Year</p>
+                                        <p>Mileage: @car.Mileage km</p>
+                                        <p>Reference Nr: @car.ReferenceNumber</p>
+                                    </div>
+                                    <div class="card-text me-5">
+                                        <h3>Ends In:</h3>
+                                        <p id="timer-@car.CarId" class="timer" data-end-date="@car.EndAuction.ToString()"></p>
+                                        <h3>Bid: <span class="text-danger">@car.UserBid CHF</span></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            }
+        </div>
+    }
+    else
+    {
+        <h2 class="text-center">No cars with bids found.</h2>
+    }
+
+</div>
+
+
+<script src="~/js/countdown.js" asp-append-version="true"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeCountdown();
+    });
+</script>

@@ -8,7 +8,6 @@ namespace AutaCH_MD.Contexts
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarInformation> CarInformation { get; set; }
         public DbSet<Bid> Bids { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,17 +32,6 @@ namespace AutaCH_MD.Contexts
                         .Property(car => car.CarId)
                         .HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Car>()
-                        .Property(user => user.DateTime)
-                        .HasDefaultValueSql("GETDATE()");
-
-
-            modelBuilder.Entity<CarInformation>()
-                        .Property(carInfo => carInfo.IsActive)
-                        .HasDefaultValue(true);
-            modelBuilder.Entity<CarInformation>()
-                        .Property(carInfo => carInfo.InfoId)
-                        .HasDefaultValueSql("NEWID()");
-            modelBuilder.Entity<CarInformation>()
                         .Property(user => user.DateTime)
                         .HasDefaultValueSql("GETDATE()");
 
@@ -73,12 +61,16 @@ namespace AutaCH_MD.Contexts
                         .WithOne(bid => bid.Car)
                         .HasForeignKey(bid => bid.CarId);
 
-            //Configurarea relatiilor Car-CarInformation
-            //O masina are o singura CarInformation, iar o informatie apratine doar unei singure masini
-            modelBuilder.Entity<Car>()
-                        .HasOne(car => car.CarInformation)
-                        .WithOne(carInfo => carInfo.Car)
-                        .HasForeignKey<CarInformation>(carInfo => carInfo.CarId);
+            modelBuilder.Entity<Bid>()
+                .HasOne(bid => bid.User)
+                .WithMany(user => user.Bids)
+                .HasForeignKey(bid => bid.UserId);
+
+            modelBuilder.Entity<Bid>()
+            .HasOne(b => b.Car)
+            .WithMany(c => c.Bids)
+            .HasForeignKey(b => b.CarId);
+
 
 
         }

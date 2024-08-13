@@ -1,0 +1,374 @@
+﻿@model AutaCH_MD.Models.Car;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    string userLogin = HttpContextAccessor.HttpContext.Session.GetString("Login");
+    string userType = HttpContextAccessor.HttpContext.Session.GetString("Type");
+    var userId = HttpContextAccessor.HttpContext.Request.Cookies["UserId"];
+    
+}
+<div>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <div class="d-flex justify-content-center gap-5 mt-5 ms-0">
+        <div>
+            <div id="carousel" class="carousel">
+                <div class="carousel-inner">
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        var imgCount = 0;
+                        foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(imgCount == 0 ? "active" : "")">
+                                <img src="@image" class="d-block w-100" alt="Car image" />
+                            </div>
+                            imgCount++;
+                        }
+                    }
+                    else
+                    {
+                        <div class="carousel-item active">
+                            <img src="~/img/placeholder.png" class="d-block w-100" alt="Placeholder image" />
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only"></span>
+                </a>
+                <a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only"></span>
+                </a>
+
+                <div >
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        var imgCount = 0;
+                        <div class="d-flex flex-wrap gap-3 mt-3">
+                            @foreach (var image in Model.Images)
+                            {
+                                <div class="d-flex flex-column align-items-center gap-2">
+                                    <img src="@image" alt="Car Image" width="80" height="80" class="preview-image" data-slide-to="@imgCount" />
+                                </div>
+                                imgCount++;
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-white">No images available.</p>
+                    }
+                </div>
+            </div>
+            
+
+            <!-- Modal pentru imagine mărită -->
+            <div class="modal fade" id="imageModal" tabindex="0" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalLabel">Image</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="modalCarousel" class="carousel slide">
+                                <div class="carousel-inner">
+                                    @if (Model.Images != null && Model.Images.Any())
+                                    {
+                                        var imgCount = 0;
+                                        foreach (var image in Model.Images)
+                                        {
+                                            <div class="carousel-item @(imgCount == 0 ? "active" : "")">
+                                                <img src="@image" class="d-block w-100" alt="Large Car Image" />
+                                            </div>
+                                            imgCount++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="carousel-item active">
+                                            <img src="~/img/placeholder.png" class="d-block w-100" alt="Placeholder image" />
+                                        </div>
+                                    }
+                                    }
+                                </div>
+                                <a class="carousel-control-prev" href="#modalCarousel" role="button" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#modalCarousel" role="button" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="car-info">
+            <div class="car-title">
+                <h1>@Model.Make @Model.Model</h1>
+            </div>
+            <div class="car-details mt-5">
+                <p><strong>End of Auction</strong>: @Model.EndAuction</p>
+                <p><strong>Ends In: </strong> <span id="timer" class="timer" data-end-date="@Model.EndAuction.ToString()"></span></p>
+                
+                <ul class="mt-5">
+                    <li><strong>Make:</strong> @Model.Make</li>
+                    <li><strong>Model:</strong> @Model.Model</li>
+                    <li><strong>Year:</strong> @Model.Year</li>
+                    <li><strong>Mileage:</strong> @Model.Mileage</li>
+                    <li><strong>First Registration:</strong> @Model.FirstRegister</li>
+                    <li><strong>Reference Number:</strong> @Model.ReferenceNumber</li>
+                </ul>
+            </div>
+            @if(userLogin != null)
+            {
+                <div>
+                    <button class="btn btn-dark mt-5" data-bs-toggle="modal" data-bs-target="#offerModal">Make an Offer</button>
+                </div>
+            }
+
+            <!-- Modalul pentru ofertele utilizatorilor -->
+            <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="offerModalLabel">Make an Offer</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" asp-action="SubmitBid" asp-controller="Bid" asp-route-id="@Model.CarId">
+                                <input type="hidden" name="CarId" value="@Model.CarId" />
+                                <input type="hidden" name="UserId" value="@userId" />
+                                <div class="mb-3">
+                                    <label for="bidAmount" class="form-label">Bid Amount</label>
+                                    <input type="text" class="form-control" id="bidAmount" name="BidAmount" step="0.01" required placeholder="CHF" />
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="more-info mb-5">
+        <h1 class="text-center mt-5">More Information</h1>
+        <div class="container mt-5">
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Make:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Make</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Model:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Model</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Body:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Body</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Color:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Color</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Engine:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Engine cm<sup>3</sup></p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Fuel:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Fuel</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Transmission:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Transmission</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Gears:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Gears</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Doors:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Doors</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Seats:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Seats</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Tires:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Tires</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Key:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Key</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Price(New Car):</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.NewPrice</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Value:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.Value</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Repair Costs:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.RepairCosts</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Serial Equipment:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.SerialEquipment</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>More Info:</strong>
+                </div>
+                <div class="col">
+                    <p>@Model.MoreInfo</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Registration Certificate:</strong>
+                </div>
+                <div class="col">
+                    <p>@(Model.RegistrationCertificate ? "Yes" : "No")</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Run and Drive:</strong>
+                </div>
+                <div class="col">
+                    <p>@(Model.Drive ? "Yes" : "No")</p>
+                </div>
+            </div>
+            <div class="row w-50">
+                <div class="col">
+                    <strong>Damaged:</strong>
+                </div>
+                <div class="col">
+                    <p>@(Model.Damaged ? "Yes" : "No")</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/countdown.js" asp-append-version="true"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeCountdown();
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const previewImg = document.querySelectorAll(".preview-image");
+
+        previewImg.forEach(image => {
+            image.addEventListener("click", function () {
+                const slideTo = this.getAttribute("data-slide-to");
+                const carousel = document.querySelector("#carousel");
+
+                const carouselInstance = new bootstrap.Carousel(carousel);
+                carouselInstance.to(parseInt(slideTo));
+            });
+        });
+
+        const carouselImages = document.querySelectorAll(".carousel-item img");
+
+        carouselImages.forEach((img, index) => {
+            img.addEventListener("click", function () {
+                const modalImageCarousel = document.querySelector("#modalCarousel");
+                const modalCarouselInstance = new bootstrap.Carousel(modalImageCarousel, {
+                    interval: false,
+                });
+
+                modalCarouselInstance.to(index); // Set the current slide in modal
+
+                const imageModal = new bootstrap.Modal(document.querySelector("#imageModal"));
+                imageModal.show();
+            });
+        });
+    });
+</script>
+
