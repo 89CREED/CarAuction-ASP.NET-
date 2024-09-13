@@ -1,19 +1,26 @@
-using AutaCH_MD.Contexts;
+﻿using AutaCH_MD.Contexts;
 using AutaCH_MD.Middlewares;
 using AutaCH_MD.Models;
+using AutaCH_MD.Services;
+using Hangfire;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+//configurare Hangfire
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("Connection")));
+builder.Services.AddHangfireServer();
+
+
 
 // Add services to the container.
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<BidService>(); //serviciul BidService
 
-var conn = builder.Configuration.GetConnectionString("Connection");
-builder.Services.AddDbContext<AppDataContext>(options => options.UseSqlServer(conn));
+builder.Services.AddDbContext<AppDataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
 
 builder.Services.AddSession(options =>
@@ -47,8 +54,23 @@ app.UseSession();
 
 app.UseMiddleware<UserCookieMiddleware>();
 
+// Configurarea Hangfire Dashboard și Server
+app.UseHangfireDashboard();
+
+app.UseHangfireServer();
+
+
+
+// Adăugarea job-urilor recurente
+app.MapGet("/configure-jobs", (BidService bidService) =>
+{
+    RecurringJob.AddOrUpdate("update-bid-status", () => bidService.UpdateBidStatus(), Cron.MinuteInterval(1));
+    return Results.Ok("Job configured.");
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

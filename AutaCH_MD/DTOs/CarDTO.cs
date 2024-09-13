@@ -1,4 +1,6 @@
-﻿namespace AutaCH_MD.DTOs
+﻿using AutaCH_MD.Models;
+
+namespace AutaCH_MD.DTOs
 {
     public class CarDTO
     {
@@ -33,5 +35,7 @@
         public bool IsActive { get; set; }
         public DateTime DateTime { get; set; }
         public decimal UserBid { get; set; }
+
+        public BidStatus? BidStatus { get; set; }
     }
 }

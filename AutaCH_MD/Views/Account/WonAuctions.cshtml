@@ -1,23 +1,14 @@
-﻿@model IEnumerable<AutaCH_MD.DTOs.CarDTO>;
+﻿@model IEnumerable<AutaCH_MD.DTOs.CarDTO>
 
 <div class="car-section mt-5 mb-5">
-    <h1 class="title text-center">Auctions and Bids</h1>
+    <h1 class="title text-center">Won Auctions</h1>
 
     @if (Model.Any())
     {
         <div class="car-cards d-flex flex-column gap-5 mt-5">
-            
             @foreach (var car in Model)
             {
-                var statusClass = car.BidStatus switch
-                {
-                    BidStatus.Pending => "status-pending",
-                    BidStatus.Winning => "status-winning",
-                    BidStatus.Lost => "status-lost",
-                    _ => "status-default"
-                };
-               
-                <div class="card d-flex @(statusClass)" data-status="@car.BidStatus">
+                <div class="card d-flex status-winning">
                     <div class="row no-gutters">
                         <div class="img-section col-md-4">
                             @if (car.Images != null && car.Images.Any())
@@ -50,21 +41,16 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-                    
                 </div>
-                
             }
         </div>
     }
     else
     {
-        <h2 class="text-center">No cars with bids found.</h2>
+        <h2 class="text-center">No won cars found.</h2>
     }
-
 </div>
-
 
 <script src="~/js/countdown.js" asp-append-version="true"></script>
 <script>

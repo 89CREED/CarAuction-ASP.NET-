@@ -4,6 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace AutaCH_MD.Models
 {
+    public enum BidStatus
+    {
+        Pending,
+        Winning,
+        Lost
+    }
     public class Bid
     {
         [Key]
@@ -22,6 +28,8 @@ namespace AutaCH_MD.Models
         public decimal BidAmount {  get; set; }
         public DateTime DateTime { get; set; }
         public bool IsActive { get; set; }
+
+        public BidStatus Status { get; set; }
 
     }
 }

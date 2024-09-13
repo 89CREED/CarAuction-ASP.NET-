@@ -88,7 +88,7 @@ namespace AutaCH_MD.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving data: " + ex.Message);
                 }
-            }  
+            }
             return View(userDTO);
         }
 
@@ -123,7 +123,7 @@ namespace AutaCH_MD.Controllers
 
             // Verifică dacă loginul este pentru un utilizator obișnuit
             var existingUser = this._ctx.Users
-                .FirstOrDefault(user => user.Login == userDTO.Login && user.IsActive && user.Type == "user" );
+                .FirstOrDefault(user => user.Login == userDTO.Login && user.IsActive && user.Type == "user");
 
             if (existingUser != null)
             {
@@ -180,17 +180,17 @@ namespace AutaCH_MD.Controllers
         [HttpGet]
         public IActionResult EditProfile(Guid? userId)
         {
-            if(!userId.HasValue)
+            if (!userId.HasValue)
             {
                 var currentUser = Request.Cookies["UserId"];
-                if(currentUser != null)
+                if (currentUser != null)
                 {
                     userId = Guid.Parse(currentUser);
                 }
             }
 
             var existingUser = this._ctx.Users.SingleOrDefault(user => user.UserId == userId);
-            if(existingUser != null)
+            if (existingUser != null)
             {
                 var dto = new UpdateUserDTO
                 {
@@ -253,8 +253,8 @@ namespace AutaCH_MD.Controllers
             }
             return View(updateUserDto);
         }
-        
- 
+
+
         public IActionResult ChangePassword()
         {
             return View();
@@ -325,7 +325,7 @@ namespace AutaCH_MD.Controllers
         {
             var userIdCookie = Request.Cookies["UserId"];
 
-            if(!Guid.TryParse(userIdCookie, out Guid userId))
+            if (!Guid.TryParse(userIdCookie, out Guid userId))
             {
                 return RedirectToAction("Home");
             }
@@ -343,6 +343,11 @@ namespace AutaCH_MD.Controllers
                     ReferenceNumber = car.ReferenceNumber,
                     Images = car.Images,
                     EndAuction = car.EndAuction,
+                    BidStatus = car.Bids
+                        .Where(bid => bid.UserId == userId)
+                        .OrderByDescending(bid => bid.BidAmount)
+                        .Select(bid => bid.Status)
+                        .FirstOrDefault(),
                     UserBid = car.Bids
                         .Where(bid => bid.UserId == userId)
                         .Select(bid => bid.BidAmount)
@@ -379,11 +384,45 @@ namespace AutaCH_MD.Controllers
 
             var model = new CarListViewModel
             {
-              Cars = cars
+                Cars = cars
             };
 
             return View("WatchList", model);
         }
+
+
+        public IActionResult WonAuctions()
+        {
+            var wonBids = this._ctx.Bids
+                .Where(b => b.Status == BidStatus.Winning)
+                .Select(b => b.CarId)
+                .ToList();
+
+            var wonCars = this._ctx.Cars
+                .Where(c => wonBids.Contains(c.CarId))
+                .Include(car => car.Bids)
+                .ToList();
+
+            var dto = wonCars
+                .Select(car => new CarDTO
+                {
+                    CarId = car.CarId,
+                    Make = car.Make,
+                    Model = car.Model,
+                    Year = car.Year,
+                    Mileage = car.Mileage,
+                    ReferenceNumber = car.ReferenceNumber,
+                    EndAuction = car.EndAuction,
+                    Images = car.Images,
+                    UserBid = this._ctx.Bids
+                        .Where(b => b.CarId == car.CarId && b.Status == BidStatus.Winning)
+                        .Max(b => b.BidAmount)
+                })
+                .ToList();
+
+            return View("WonAuctions", dto);
+        }
+
 
 
 

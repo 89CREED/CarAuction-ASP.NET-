@@ -5,6 +5,7 @@ using AutaCH_MD.DTOs;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutaCH_MD.Controllers
 {
@@ -24,10 +25,16 @@ namespace AutaCH_MD.Controllers
 
         public IActionResult CarsList()
         {
-            var cars = this._ctx.Cars.ToList();
+            var cars = this._ctx.Cars
+                .Include(c => c.Bids)
+                .ToList(); // Obține toate datele mașinilor
+
+            // Dacă view-ul trebuie să folosească Car, atunci trimite obiectul Car în loc de CarDTO
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
-            return View("CarsList", cars);
+            return View("CarsList", cars); // Folosește view-ul care acceptă IEnumerable<Car>
         }
+
+
 
 
         [HttpPost]
@@ -232,7 +239,7 @@ namespace AutaCH_MD.Controllers
                     try
                     {
                         this._ctx.SaveChanges();
-                        TempData["SuccesMessage"] = "Car updated succesfully.";
+                        TempData["SuccessMessage"] = "Car updated succesfully.";
                         return RedirectToAction("CarsList");
                     }
                     catch (Exception ex)

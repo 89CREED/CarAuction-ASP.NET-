@@ -3,10 +3,10 @@
 <div class="list d-flex flex-column mt-5 mb-5">
     <h1 class="text-center">All Bids</h1>
 
-    @if (ViewBag.SuccessMessage != null)
+    @if (TempData["SuccesMessage"] != null)
     {
         <div class="alert alert-success mt-5" role="alert">
-            @ViewBag.SuccessMessage
+            @TempData["SuccesMessage"]
         </div>
     }
 
@@ -30,6 +30,7 @@
                 <th>Bid Amount</th>
                 <th>Date and time</th>
                 <th>Is Active</th>
+                <th>Status</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -50,6 +51,7 @@
                     <td>@bid.BidAmount</td>
                     <td>@bid.DateTime</td>
                     <td>@(bid.IsActive ? "Yes" : "No")</td>
+                    <td>@bid.Status</td>
                     <td>
                         <a class="badge rounded-pill bg-success" asp-controller="Bid" asp-action="EditBid" asp-route-bidId="@bid.BidId">Edit</a>
                     </td>

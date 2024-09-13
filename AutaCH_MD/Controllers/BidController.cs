@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutaCH_MD.Models;
 using AutaCH_MD.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace AutaCH_MD.Controllers
 {
@@ -34,19 +35,29 @@ namespace AutaCH_MD.Controllers
                 return RedirectToAction("CarDetails", "Car", new { id = carId });
             }
 
+            var existingBid = this._ctx.Bids.SingleOrDefault(b => b.CarId == carId && b.UserId == userId && b.IsActive);
 
-            var bid = new Bid
+            if(existingBid != null)
             {
-                BidId = Guid.NewGuid(),
-                CarId = carId,
-                UserId = userId,
-                BidAmount = bidAmount,
-                DateTime = DateTime.Now,
-                IsActive = true
-            };
-            this._ctx.Bids.Add(bid);
+                existingBid.BidAmount = bidAmount;
+                existingBid.Status = BidStatus.Pending;
+            }
+            else
+            {
+                var bid = new Bid
+                {
+                    BidId = Guid.NewGuid(),
+                    CarId = carId,
+                    UserId = userId,
+                    BidAmount = bidAmount,
+                    DateTime = DateTime.Now,
+                    IsActive = true,
+                    Status = BidStatus.Pending
+                };
+                this._ctx.Bids.Add(bid);
+            }
             this._ctx.SaveChanges();
-
+            TempData["SuccessMessage"] = "Bid was placed succesfuly.";
             return RedirectToAction("CarDetails", "Car", new { id = carId });
         }
 
@@ -98,7 +109,7 @@ namespace AutaCH_MD.Controllers
                     try
                     {
                         this._ctx.SaveChanges();
-                        TempData["SuccesMessage"] = "Bid updated succesfully.";
+                        TempData["SuccessMessage"] = "Bid updated succesfully.";
                         return RedirectToAction("BidsList");
                     }
                     catch (Exception ex)
@@ -138,7 +149,7 @@ namespace AutaCH_MD.Controllers
                 };
                 return View("DeleteBidPage", dto);
             }
-            return RedirectToAction("AdminPage", "Admin");
+            return RedirectToAction("BidsList");
         }
 
 
@@ -146,7 +157,7 @@ namespace AutaCH_MD.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteBidConfirm(Guid bidId)
         {
-            var bid = this._ctx.Users.Find(bidId);
+            var bid = this._ctx.Bids.Find(bidId);
             if (bid != null)
             {
                 try

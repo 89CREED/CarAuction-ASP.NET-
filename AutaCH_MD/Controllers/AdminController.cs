@@ -22,7 +22,7 @@ namespace AutaCH_MD.Controllers
 
             if (adminUser != null)
             {
-                var admin = this._ctx.Users.FirstOrDefault(user => user.Type == adminUser);
+                var admin = this._ctx.Users.FirstOrDefault(user => user.Type == userType);
                 return View(admin);
             }
             return RedirectToAction("Login", "Account");
